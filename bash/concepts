@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# NOTE: command substitutions se ejecuta en un subshell y luego retorna el output al shell principal
+# Bash hace 5 pasos siempre antes de ejecutar un comando.
+# =============================================================================================
+# 1.Tokkenizacion (Identifica palabras y operadores usando metacaracteres (puntuacion))
+#
+#     - words:     tokkes que no contienen metacaracteres fuera de 
+#                  comillas.
+#     - commandos: tokkens que contienen almenos un metacaracter fuera
+#                  de comillas.
+#
+# 2.Identificacion de comando(Simple o computesto)
+#
+#     - Simple:    Palabras individuales separadas por un operador de control (/n,;)(echo,tar,ls)
+#     - Compuestos:Constructores de programacion (if,for,while,etc)
+#
+# 3.Expansionamiento
+#
+# 4.Quote Removal (Remueve las comillas que una vez interpretadas por bash ya no son necesarias)
+#
+# 5.Redirections
+#
+# 6.Ejecucion del resultado final.
+# =============================================================================================
+# Quotes types:
+# (backSlash:remueve significa especial del caracter inmediato despuest del backslash)
+# (Single Quotes:remueve el significado de cualquier caracter especial adentro de ellas)
+# (Double quotes: remueve el funcionamiento de todo menos del dollar $ y los backticks ``=> otro tipo de command expansion, tambien se
+# mantiene el backslash)
+
+#echo John & jane
+echo 'Jhon & jane'
+echo Jhon \$ jane
+
+filepath=C:\\Users\\christian\\Desktop
+echo ${filepath}
+filepath='C:\Users\christian\Desktop'
+echo ${filepath}
+filepath="C:\Users\\${USER}\Desktop"
+echo ${filepath}
+
+# Metacaracteres y tokkenizacion(only unquoted)
+# | & ; () <> space,tab,new line
+# Newline | || & && ; ;; ;& ;;& |& ( ) Control operators
+# < > << >> <& >| <<- <> >& Redirection operators
+name="Christian"
+#w  m  w  mmm  w
+echo $name > out.txt
+
+#Identificacion de comandos(simple y compound)
+echo 1 2 3 #control operator(invisible salto de linea)# #simple#
+echo 1 2 3 echo 4 5
+echo 1 2 3;echo 4 5 #control operator (;) #simple#
+
+#compound commands empiezan con palabras reservadas por bash , if fi for done esac case etc.
+if [[ 2 -gt 1 ]];then
+	echo "hello world"
+fi
+#Expansions en orden
+#Brace,(parameter,aritmetic,command subs,tilde expansion),word spliting,globbing
+x=10
+# echo {1..$x} no cumple el orden de expansion
+echo $name has $(( 1+2 )) apples #mismo nivel de importancia va de izquierda a derecha
+# Word splitting(IFS variable internal field separatione)
+echo "${IFS@Q}"
+numbers="1 2 3 4 5"
+#Word splitting solo aplica a resultados de expansion que queden sin comillas y esten separados por el 
+#o los caracteres que esten en la variable IFS
+
+# touch $numbers creara 5 archivos nuevos porque despues del parameter expansion ifs separara cada numero por espacio
+#en un tokken individual (palabra)
+#touch "$numbers" no hará word spliting porque se quitaran solo las comillas de numbers pero no las de 1 2 3 4 5
+
+#Globbing (*?[) lista de archivos que cumplan con patrones siempre alfabeticamente
+ls * # Hace match con todo incluso lo vacio
+ls *s
+ls con*
+
+ls conc?pts # cualquier caracter INDIVIDUAL solo uno y debe ser un match exacto, este no puede ser vacio
+ls con??pts
+
+ls c[ocb]ncept? #Match con catarter especifico tampoco puede ser vacio
+ls c[0-9] #Match con rangos
+
+#Quote removal '' "" / backslash cuando no son el resultado de una expansion
+echo "$HOME" #Las comillas desapareceran dejando output = $HOME sin expandir
+echo '\$HOME' #El resultado sera \$HOME
+
+#Redireccion <> | stdout 1 => screen,stderr 2 => screen,stdin 0 => keyboard
+#single metacaracter truncate file
+cat < out.txt #stdin
+echo "output" > out.txt #stdout
+cd /root 2> error.txt #stderror
+cd /root &> /dev/null #stdout and stderror
+#doble metacaracter appens
+echo "output2" >> out.txt
+cd /root 2>> error.txt
+cd /root &>> /dev/null
+#echo "output" | ls redirecciona output a input de un comando a otro
+ 

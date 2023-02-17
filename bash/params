@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# ${parameter:-value} =>Esto asigna un valor por defecto si un parametro no existe
+#op=$1
+
+#echo $(( ${2:-0} ${op} ${3:-0} ${op} ${4:-0} ${op} ${5:-0} ${op} ${6:-0} ${op} ${7:-0} ${op} ${8:-0} ${op} ${9:-0} ${op} ${10:-0} ))
+
+echo $(( $@ ))
+
+#Special parameters (reservados)(parameter expansion aplica como siempre)
+echo "$# parametros" #=> cantidad de parametros posicionales pasados
+echo "$0"            #=> nombre del script/nombre del shell
+echo $*              #=> es lo mismo que $@
+echo "$*"            #=> este pone entre parametros el primer caracter de la variable IFS, util para separa por comas.
+echo $@ args here    #=> almacena todos los parametros posicionales a la misma vez(word splitting)
+echo "$@ con comi"   #=> pone comillas a cada parametro en lugar de poner comillas al total de los parametros
+#script.sh "hello world" =>touch $@ con esto habria word splitting y se crearian dos archivos (hello y world)
+# si se hace con touch "$@" se evita esto.
+

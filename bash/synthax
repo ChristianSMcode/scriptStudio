@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# ${}= permite mayor flexibilidad y usos de las variables en parameter expansion
+# $=Es mas simple y no es tanto el estandar
+#VARIABLES NO SON MUTABLES
+
+student="ChristiaN"
+
+echo "${student,,}"       #Lowercase, uncapitalize
+echo "${USER^^}"          #Capitalize, Uppercase
+echo "${#student}"        #Echo lenght
+echo "${student:0:7}"     #Slicing offset:length
+echo "${student: -3}"     #Slicing negative
+
+# $() = Command expansion se usa de forma comun y permite muchas operaciones distintas
+# `` = Hace lo mismo pero se considera obsoleta debido a ambiguedad,confusion y complejidad de synthaxis
+time=$(date +%H:%m:%S)	  #Guarda el standard output del comando.
+echo "Hello ${USER} the time now is ${time}"
+
+# $((expresion)) Aritmetic expansion (no permite operaciones de punto decimal)
+a=5
+x=5
+echo $(( $a + $x ))         #Operands: +-/* ** %
+echo $(( a / x ))           #Hace lo mismo sin necesidad del simbolo $
+echo $(( (a + x) * a ))     #Orden de ejecucion igual que en matematicas
+
+# bc command(realmente es un lenguage de programacion en si) para operaciones con numeros decimales
+decimal_result=$(echo "scale=2; 5/2" | bc) #Standard output del echo al comando bc con la operacion y cantidad de decimales.
+echo $decimal_result		           #El simbolo pipe (|) pasa el estandar output de un comando a otro.
+
+# ~ tilde expansion
+echo ~                      #Home del usuario actual.
+echo ~other_user            #Expande al home de otro usuario.
+echo ~root                  #Check if user exists.
+echo $PWD
+echo $OLDPWD                #Ultimo working directory.
+echo ~+                     #Abreviacion current directory.
+echo ~-			    #Abreviacion antiguo directory.
+
+# {}=Brace expansion, util para crear loops implicitos en comandos como mkdir o touch etc.
+echo {en,feb,mar,abr}       #Expande todo lo que contenga, no se deben usar espacios.(string list)
+echo month{1..12}           #Expande rangos,tampoco se deben usar espacios (range list)
+echo {a..z}
+echo {0..100..10}           #Salta de pasos de a 10.
+echo month{01..12}          #Mantiene misma longitud de digitos
+#mkdir month{01..12}        #Crea 12 directorios
+#touch month{01..12}/day{01..31}.txt #Crea 31 archivos dentro de cada directorio.
+
+#echo $PATH
+#echo $HOME
+#echo $USER
+#echo $HOSTNAME
+#echo $HOSTTYPE
+#echo $PS1
