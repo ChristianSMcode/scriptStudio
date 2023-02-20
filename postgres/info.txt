@@ -1,0 +1,7 @@
+installed on: C:/program files/postgreSQL/14
+Data on:      C:/program files/postgreSQL/14/data
+superUser:    postgres
+password:     r-.
+puerto:       5432
+User==============================================
+cris,r-.
