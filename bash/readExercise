@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#Obtiene unos datos usando el comando read  y los agrega a un archivo con formato csv.
+
+read -p "Inserta tu nombre: " nombre
+read -p "Inserta tu apellido: " apellido
+read -N 4 -s -p "Inserta tu extension de numero[4 digitos]: " extension
+echo ''
+read -N 4 -s -p "Ingresa un codigo de acceso[4digitos]: " codigo
+echo ''
+
+PS3="Ingrese tipo de celular: "
+select cel_tipo in movil fijo;
+do 
+	break 
+done
+
+PS3="Ingrese estado: "
+select estado in activo inactivo;
+do
+	break
+done
+
+echo "$nombre,$apellido,$extension,$codigo,${cel_tipo:-null},${estado:-null}" >> extensions.csv

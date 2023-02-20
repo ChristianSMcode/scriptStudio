@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#read command (Literalmente es como el input de python para que un usuario inserte o interacture con un script
+#durante su ejecucion)
+#Por defaul se guarda en la variable REPLY
+
+echo "Cual es tu nombre"
+read nombre edad #Puede recibir varios inputs con una sola ejecucion
+echo "Hola ${nombre} mucho gusto"
+echo "Tienes ${edad} años"
+
+
+read -p "Entra una pregunta: " pregunta #Instruccion del prompt con la bandera -p
+echo 'La pregunta' ${pregunta} 'es muy interesante'
+
+read -t 5 -p "Tienes 5 segundos para decir algo: " comentario #Agrega un timer antes de continuar la ejecucion
+echo  "$comentario"
+
+read -s -p "Ingresa una contrasena: "
+echo "contrasena almacenada"
+
+
+#help read es un comando para leer la documentacion interna de un comando

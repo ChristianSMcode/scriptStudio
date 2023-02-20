@@ -1,14 +1,14 @@
 ***********************************
 Dia A:
--Bash            (curso)     1 hora (D)
--AWS             (curso)     1 hora (D)
--Python          (Investi)   1 hora (D)
+-Bash            (curso)     1 hora (D)***|
+-AWS             (curso)     1 hora (D)***|
+-Python          (Investi)   1 hora (D)***|
 ===================================
--Python          (Ejercicios)1 hora (D)
--Bash            (Ejercicios)1 hora (m)
--PostgreSql      (curso)     1 hora (m)(D)
+-Python          (Ejercicios)1 hora (D)***|
+-Bash            (Ejercicios)1 hora (m)(P)
+-PostgreSql      (curso)     1 hora (m)(D)|
 ===================================
--Node            (Ejercicios)1 hora (m)(P)
+-Node            (Ejercicios)1 hora (m)(D)|
 ***********************************
 Dia B:
 -Bash            (curso)     1 hora

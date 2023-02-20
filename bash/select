@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#El comando select permite al usuario escoger de diferentes opciones y hacer diferentes acciones dependiendo de esa decision.
+#Por defecto se guarda en una variable llamada RESPONSE
+#Valor por defecto es ${variable:-valor}
+#Detener loop con break
+#PS3 shell variable es especifico para el comando select y remplaza el #? prompt
+PS3="Ingrese el dia de la semana: "
+select  respuesta_dia in mon tue wed thu fri sat sun;
+do
+	echo "The day of the week is ${respuesta_dia:-NaD}"
+	break
+done
+
+
